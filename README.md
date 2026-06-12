@@ -57,7 +57,7 @@ Every test below had its prediction written down **before** the run (see script 
 | Metric weight α=0.7 | exponent ∈ [−0.65, −0.40] | −0.65 | ✅ borderline |
 | Metric weight α=0.3 | idem | unresolved (g* below grid resolution) | ⚠️ open |
 | Rényi-2 vs von Neumann bias | ≤ 15% | +2% to +16% | ✅ quantified |
-| Block size m=2/3/4 (exploratory) | — (ambiguous pre-registration) | g* ≈ 0.34/0.29/0.20, ~1/√m | exploratory |
+| Block size m=2/3/4 (15 seeds/point) | naive uniform 1/√m | g*·√m = 0.51/0.52/**0.37** — 1/√m holds within the same cut class (m=2 vs 3, 2% apart); the m=4 drop coincides with a mid-block half-cut, i.e. the **same documented parity artifact** as in g*(N) | naive law refuted; unified diagnostic-artifact picture (post-hoc, mechanism independently tested) |
 | Ring vs chain | ring lower ~−10% | **−35%** (cut crosses 2 links → −29% post-hoc) | direction ✅, magnitude under-predicted |
 
 At the deep-regime optimum the window keeps **~50–57% of the gradient variance for ×2.6–3.2 inter-block entanglement** (the earlier "~80%" figure was a shallow-depth value — corrected here).
