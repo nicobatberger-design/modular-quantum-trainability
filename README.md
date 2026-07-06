@@ -79,7 +79,7 @@ At the deep-regime optimum the window keeps **~50–57% of the gradient variance
 
 ## Status
 
-Preliminary but stress-tested: adversarial review, prior-art search over 17 papers, pre-registered predictions — **one confirmed** (L=160: predicted 0.098, measured 0.094 ± 0.005) — and one earlier claim **retracted** when a rigorous re-run falsified it. **Not a publishable breakthrough as-is** — a precise, coherent hypothesis with reproducible POCs, offered to start a conversation with researchers.
+Preliminary but stress-tested: adversarial review, prior-art search over 17 papers, pre-registered predictions — **one confirmed** (L=160: predicted 0.098, measured 0.096 ± 0.004, 10 seeds) — and one earlier claim **retracted** when a rigorous re-run falsified it. **Not a publishable breakthrough as-is** — a precise, coherent hypothesis with reproducible POCs, offered to start a conversation with researchers.
 
 ## Author
 
