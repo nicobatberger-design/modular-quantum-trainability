@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A depth-set coupling scale in modular quantum circuits, and evidence that it stays classically cheap</title>
+<meta name="author" content="Nicolas Berger">
+<style>
+  @page { size: A4; margin: 17mm 19mm 16mm; @bottom-center { content: counter(page); font-family: "Cambria", serif; font-size: 9pt; color: #555; } }
+  * { box-sizing: border-box; }
+  body { font-family: "Cambria", "Times New Roman", serif; font-size: 10.1pt; line-height: 1.32; color: #111; background: #fff; margin: 0; }
+  math { font-family: "Cambria Math", "Cambria", serif; }
+  h1 { font-size: 16.5pt; line-height: 1.2; text-align: center; font-weight: 700; margin: 0 0 7pt; }
+  .byline { text-align: center; font-size: 10.2pt; margin: 0 0 2pt; }
+  .status { text-align: center; font-size: 9.2pt; color: #444; font-style: italic; margin: 0 0 9pt; }
+  .abstract { font-size: 9.7pt; margin: 0 6mm 8pt; }
+  .abstract b { font-variant: small-caps; }
+  h2 { font-size: 11pt; font-weight: 700; margin: 10pt 0 3pt; break-after: avoid; }
+  p { margin: 0 0 5pt; text-align: justify; hyphens: auto; }
+  ul, ol { margin: 0 0 5pt; padding-left: 15pt; }
+  li { margin: 0 0 2.5pt; text-align: justify; hyphens: auto; }
+  figure { margin: 6pt 0 7pt; break-inside: avoid; }
+  figure img { width: 100%; display: block; }
+  figcaption, .tablecap { font-size: 8.9pt; line-height: 1.28; color: #222; text-align: justify; }
+  figcaption { margin-top: 3pt; }
+  .tablecap { margin: 6pt 0 3pt; break-after: avoid; }
+  table { border-collapse: collapse; width: 100%; font-size: 8.9pt; margin: 0 0 7pt; break-inside: avoid; font-variant-numeric: tabular-nums; }
+  th, td { padding: 1.7pt 5pt; text-align: right; border: 0; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { border-top: 1pt solid #111; border-bottom: 0.6pt solid #111; font-weight: 700; }
+  tbody tr:last-child td { border-bottom: 1pt solid #111; }
+  tr.rule td { border-top: 0.4pt solid #999; }
+  .refs { font-size: 8.9pt; line-height: 1.27; padding-left: 18pt; }
+  .refs li { margin-bottom: 1.5pt; text-align: left; hyphens: none; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+
+<h1>A depth-set coupling scale in modular quantum circuits,<br>and evidence that it stays classically cheap</h1>
+<p class="byline">Nicolas Berger, no research affiliation, nicobatberger@gmail.com, November 2026</p>
+<p class="status">Not peer reviewed. Written with AI tools, see Section 6. Sent for expert criticism.</p>
+
+<p class="abstract"><b>Abstract.</b> This note studies chains of two-qubit blocks with a continuous inter-block ZZ angle <math><mi>g</mi></math>, by exact state-vector simulation up to <math><mi>N</mi><mo>=</mo><mn>16</mn></math>. A balance score between half-cut entropy and the gradient variance of a local observable peaks at a coupling <math><msup><mi>g</mi><mo>*</mo></msup></math> that falls with depth as <math><msup><mi>L</mi><mrow><mo>&#8722;</mo><mn>0.54</mn><mo>&#177;</mo><mn>0.07</mn></mrow></msup></math> for <math><mi>L</mi></math> from 40 to 160, and does not fall with <math><mi>N</mi></math> at fixed depth. Both quantities collapse approximately onto functions of <math><mi>x</mi><mo>=</mo><mi>L</mi><msup><mi>g</mi><mn>2</mn></msup></math>, which would account for the scaling. In the tested range the regime is classically cheap for this observable: at <math><mi>g</mi><mo>=</mo><mn>1.2</mn><mo lspace="0" rspace="0">/</mo><msqrt><mi>L</mi></msqrt></math>, a 6-qubit truncated circuit reproduces the gradient of <math><mo>&#10216;</mo><msub><mi>Z</mi><mn>0</mn></msub><mo>&#10217;</mo></math> in 12-, 14- and 16-qubit circuits with an NRMSE of 2 to 3&#8239;% over random circuits. The gradient component studied keeps an appreciable variance, but for this observable the regime gives no reason to use quantum hardware. No claim of novelty is made. The note asks whether this is correct, and whether any coupling keeps a usable gradient while defeating the best classical estimators.</p>
+
+<h2>1. Model and measures</h2>
+<p>The <math><mi>N</mi></math> qubits form blocks of two. Each of the <math><mi>L</mi></math> layers applies <math><msub><mi>R</mi><mi>Y</mi></msub></math> then <math><msub><mi>R</mi><mi>Z</mi></msub></math> on every qubit with independent uniform random angles, then <math><mi>exp</mi><mo lspace="0" rspace="0">(</mo><mo>&#8722;</mo><mi>i</mi><mi>a</mi><msub><mi>Z</mi><mi>j</mi></msub><msub><mi>Z</mi><mi>k</mi></msub><mo lspace="0" rspace="0">/</mo><mn>2</mn><mo lspace="0" rspace="0">)</mo></math> with <math><mi>a</mi><mo>=</mo><mi>&#960;</mi><mo lspace="0" rspace="0">/</mo><mn>2</mn></math> inside each block and <math><mi>a</mi><mo>=</mo><mi>g</mi></math> on the links between neighbouring blocks. Trainability is measured by the variance of the parameter-shift gradient of <math><mo>&#10216;</mo><msub><mi>Z</mi><mn>0</mn></msub><mo>&#10217;</mo></math> with respect to the first <math><msub><mi>R</mi><mi>Y</mi></msub></math> angle on qubit 0. Entanglement is the von Neumann entropy at a cut, either at a block boundary or through a block. The score is <math><mfrac><mrow><mi>S</mi><mo lspace="0" rspace="0">(</mo><mi>g</mi><mo lspace="0" rspace="0">)</mo></mrow><msub><mi>S</mi><mi>max</mi></msub></mfrac><mo>&#215;</mo><mfrac><mrow><mi>Var</mi><mo lspace="0" rspace="0">(</mo><mi>g</mi><mo lspace="0" rspace="0">)</mo></mrow><mrow><mi>Var</mi><mo lspace="0" rspace="0">(</mo><mn>0</mn><mo lspace="0" rspace="0">)</mo></mrow></mfrac></math>, and <math><msup><mi>g</mi><mo>*</mo></msup></math> is its interpolated maximum on a grid. This score is a convention. It locates a balance point and is not the optimum of any computational task.</p>
+
+<h2>2. The depth scale</h2>
+<ul>
+  <li><b>Depth.</b> At <math><mi>N</mi><mo>=</mo><mn>10</mn></math> (Fig. 1a) a single power law fails: the slope over all 9 depths is &#8722;0.80. For the 5 depths with <math><mi>L</mi></math> from 40 to 160 the slope is &#8722;0.54&#177;0.07 (bootstrap over seeds), with <math><msup><mi>g</mi><mo>*</mo></msup><msqrt><mi>L</mi></msqrt></math> between 1.13 and 1.30. At <math><mi>N</mi><mo>=</mo><mn>12</mn></math>, three depths (24, 48, 96) give &#8722;0.59, without error bar.</li>
+  <li><b>Size.</b> At fixed <math><mi>L</mi><mo>=</mo><mn>20</mn></math>, <math><msup><mi>g</mi><mo>*</mo></msup></math> does not fall with <math><mi>N</mi></math> from 6 to 16. It splits by cut position: 0.275, 0.322, 0.327 when the half-cut crosses a block (<math><mi>N</mi></math> = 6, 10, 14), and 0.387, 0.390, 0.449 when it falls on a boundary (<math><mi>N</mi></math> = 8, 12, 16; the last has 3 seeds and a spread of 0.087). The prefactor is therefore not universal.</li>
+  <li><b>Score.</b> With <math><msup><mi>S</mi><mi>&#945;</mi></msup><msup><mi>Var</mi><mrow><mn>1</mn><mo>&#8722;</mo><mi>&#945;</mi></mrow></msup></math>, <math><mi>&#945;</mi><mo>=</mo><mn>0.7</mn></math> gives a slope of &#8722;0.65 and <math><mi>&#945;</mi><mo>=</mo><mn>0.3</mn></math> pushes <math><msup><mi>g</mi><mo>*</mo></msup></math> below the grid resolution. The exponent is established only for the balanced score.</li>
+</ul>
+
+<figure>
+  <img src="fig1_depth_and_scaling.png" alt="Left: optimal coupling against depth on log axes. Right: gradient variance and entropy fractions against x for three depths.">
+  <figcaption><b>Fig. 1.</b> (a) <math><msup><mi>g</mi><mo>*</mo></msup></math> against depth, mid-block half-cut, 5 to 10 seeds per depth. (b) Gradient-variance fraction <math><mi>Var</mi><mo lspace="0" rspace="0">(</mo><mi>g</mi><mo lspace="0" rspace="0">)</mo><mo lspace="0" rspace="0">/</mo><mi>Var</mi><mo lspace="0" rspace="0">(</mo><mn>0</mn><mo lspace="0" rspace="0">)</mo></math> and entropy fraction at a block-boundary cut, against <math><mi>x</mi></math>, 300 random circuits per point.</figcaption>
+</figure>
+
+<h2>3. A scaling variable, <math><mi>x</mi><mo>=</mo><mi>L</mi><msup><mi>g</mi><mn>2</mn></msup></math></h2>
+<p>The following is a heuristic and not a derivation. In the Heisenberg picture, a link gate of angle <math><mi>g</mi></math> maps <math><msub><mi>X</mi><mi>a</mi></msub><mo>&#8594;</mo><mi>cos</mi><mi>g</mi><mspace width="0.2em"/><msub><mi>X</mi><mi>a</mi></msub><mo>+</mo><mi>sin</mi><mi>g</mi><mspace width="0.2em"/><msub><mi>Y</mi><mi>a</mi></msub><msub><mi>Z</mi><mi>b</mi></msub></math> up to a sign convention. A Pauli string that anticommutes with the link's <math><msub><mi>Z</mi><mi>a</mi></msub><msub><mi>Z</mi><mi>b</mi></msub></math> therefore moves squared weight of order <math><msup><mi>sin</mi><mn>2</mn></msup><mi>g</mi></math> across the link. Treating random layers statistically, this happens with finite probability per layer, so the expected number of crossings over <math><mi>L</mi></math> layers should depend on <math><mi>L</mi><msup><mi>g</mi><mn>2</mn></msup></math> at small <math><mi>g</mi></math>. If variance and entropy depend on <math><mi>x</mi></math> alone, a balance point at fixed <math><mi>x</mi></math> gives <math><msup><mi>g</mi><mo>*</mo></msup><mo>&#8733;</mo><mn>1</mn><mo lspace="0" rspace="0">/</mo><msqrt><mi>L</mi></msqrt></math>. This argument gives no bound on truncation error and does not derive the entropy curve.</p>
+<p>Fig. 1b tests this at <math><mi>N</mi><mo>=</mo><mn>10</mn></math>. For <math><mi>x</mi><mo>&#8804;</mo><mn>4</mn></math>, the variance fraction differs across <math><mi>L</mi></math> = 40, 80, 160 by a factor of at most 1.27 and the boundary-cut entropy by at most 1.13. The collapse is approximate: at fixed <math><mi>x</mi></math>, deeper circuits have slightly lower variance and higher entropy, and the variance spread reaches 2.0 at <math><mi>x</mi><mo>=</mo><mn>9</mn></math>. The score peaks at <math><mi>x</mi></math> between 1.46 and 1.67 for the mid-block cut and between 1.92 and 2.19 for the boundary cut, which corresponds to a prefactor <math><msqrt><mi>x</mi></msqrt></math> of 1.21 to 1.29 and 1.39 to 1.48 respectively.</p>
+
+<h2>4. Truncation: classically cheap for this observable, in the tested range</h2>
+<p>The truncation test keeps the first <math><mi>n</mi></math> qubits, with the same random angles, and deletes every other gate. The error is <math><mi>NRMSE</mi><mo>=</mo><mi>rms</mi><mo lspace="0" rspace="0">(</mo><mi>full</mi><mo>&#8722;</mo><mi>truncated</mi><mo lspace="0" rspace="0">)</mo><mo lspace="0" rspace="0">/</mo><mi>rms</mi><mo lspace="0" rspace="0">(</mo><mi>full</mi><mo lspace="0" rspace="0">)</mo></math> over random circuits, so a value of 1 is no better than answering zero. Table 1 and Fig. 2 show the results, where <math><msub><mi>g</mi><mn>0</mn></msub></math> denotes the prescribed coupling <math><mn>1.2</mn><mo lspace="0" rspace="0">/</mo><msqrt><mi>L</mi></msqrt></math>, as distinct from the measured <math><msup><mi>g</mi><mo>*</mo></msup></math>.</p>
+
+<p class="tablecap"><b>Table 1.</b> Gradient NRMSE in percent, and full-circuit gradient variance. Edge rows measure <math><msub><mi>Z</mi><mn>0</mn></msub></math> with the first <math><mi>n</mi></math> qubits. Middle rows measure <math><msub><mi>Z</mi><mn>6</mn></msub></math> at <math><mi>N</mi><mo>=</mo><mn>14</mn></math> with windows 4&#8211;7, 4&#8211;9 and 2&#8211;11, and take the gradient with respect to the first <math><msub><mi>R</mi><mi>Y</mi></msub></math> angle on qubit 6. Samples: 200 at <math><mi>N</mi><mo>=</mo><mn>12</mn></math>, 100 at <math><mi>N</mi><mo>=</mo><mn>14</mn></math>, 30 at <math><mi>N</mi><mo>=</mo><mn>16</mn></math>.</p>
+<table>
+  <thead><tr><th>Coupling and observable</th><th>N</th><th>L</th><th>Var</th><th>n=4</th><th>n=6</th><th>n=8</th><th>n=10</th></tr></thead>
+  <tbody>
+    <tr><td>g<sub>0</sub>, edge</td><td>12</td><td>40</td><td>0.080</td><td>12.3</td><td>2.1</td><td>0.37</td><td>0.04</td></tr>
+    <tr><td>g<sub>0</sub>, edge</td><td>12</td><td>80</td><td>0.066</td><td>14.0</td><td>3.1</td><td>0.51</td><td>0.08</td></tr>
+    <tr><td>g<sub>0</sub>, edge</td><td>12</td><td>160</td><td>0.074</td><td>14.6</td><td>3.1</td><td>0.51</td><td>0.08</td></tr>
+    <tr><td>g<sub>0</sub>, edge</td><td>14</td><td>80</td><td>0.089</td><td>10.7</td><td>2.4</td><td>0.41</td><td>0.07</td></tr>
+    <tr><td>g<sub>0</sub>, edge</td><td>16</td><td>40</td><td>&#8211;</td><td>12.0</td><td>2.1</td><td>0.37</td><td>&#8211;</td></tr>
+    <tr><td>g<sub>0</sub>, edge</td><td>16</td><td>80</td><td>&#8211;</td><td>12.6</td><td>3.1</td><td>0.57</td><td>&#8211;</td></tr>
+    <tr class="rule"><td>g<sub>0</sub>, middle</td><td>14</td><td>40</td><td>0.039</td><td>61.8</td><td>20.2</td><td>&#8211;</td><td>3.1</td></tr>
+    <tr><td>g<sub>0</sub>, middle</td><td>14</td><td>160</td><td>0.040</td><td>60.8</td><td>18.1</td><td>&#8211;</td><td>4.2</td></tr>
+    <tr class="rule"><td>2g<sub>0</sub>, edge</td><td>12</td><td>80</td><td>0.018</td><td>80</td><td>33</td><td>11</td><td>3.0</td></tr>
+    <tr><td>4g<sub>0</sub>, edge</td><td>12</td><td>80</td><td>0.0011</td><td>548</td><td>248</td><td>123</td><td>52</td></tr>
+    <tr><td>g = &#960;/2, edge</td><td>12</td><td>40</td><td>0.0011</td><td>571</td><td>265</td><td>120</td><td>61</td></tr>
+  </tbody>
+</table>
+
+<figure>
+  <img src="fig2_truncation.png" alt="Gradient error against the number of qubits kept, on a log axis, for several couplings. Curves at g star fall fast and do not depend on N or L.">
+  <figcaption><b>Fig. 2.</b> The data of Table 1, plus <math><mi>n</mi><mo>=</mo><mn>2</mn></math> and <math><mi>n</mi><mo>=</mo><mn>12</mn></math> for edge observables. For edge observables at <math><msub><mi>g</mi><mn>0</mn></msub></math>, the error falls by a factor of about 4 to 9 per block kept, with no visible dependence on <math><mi>L</mi></math> or <math><mi>N</mi></math> in the tested range. For the middle qubit, going from 4 to 6 qubits gains a factor of 3.1 to 3.4, and going from 6 to 10 qubits a factor of 4.3 to 6.5.</figcaption>
+</figure>
+
+<p>At <math><msub><mi>g</mi><mn>0</mn></msub></math>, the cost at this accuracy is set by the window and not by <math><mi>N</mi></math>, in the range tested. A middle qubit, with neighbours on both sides, needs a wider window. This fits the heuristic of Section 3: at <math><mi>x</mi></math> of order 1 there are few link crossings, so a local operator should reach few blocks. Parameters trained on the 6-qubit circuit also transfer: 8 runs of Adam on <math><mo>&#10216;</mo><msub><mi>Z</mi><mn>0</mn></msub><mo>&#10217;</mo></math> at <math><mi>L</mi><mo>=</mo><mn>40</mn></math>, evaluated on 12 qubits with 20 random fillings each, give a mean absolute gap of 0.0012 and a full-circuit value of &#8722;0.994. This objective is easy, so the test only shows that the truncation does not break at these trained parameters.</p>
+<p>These results fit the view that provable absence of barren plateaus often comes with classical simulability under stated conditions [3], and the classical estimation of noiseless circuits by Pauli propagation [7, 8]. Failure of this crude truncation at stronger coupling proves nothing about hardness, because such methods can do far better than a fixed window.</p>
+
+<h2>5. Limits and the questions to the reader</h2>
+<p>This is one circuit family, with <math><mi>N</mi><mo>&#8804;</mo><mn>16</mn></math>, local observables, one gradient component, mostly random parameters, no noise, and no computational task. No performance gain is shown. In the earlier training test at <math><mi>N</mi><mo>=</mo><mn>6</mn></math>, the weak-coupling window gave no performance optimum. Related work restricts entanglement between registers or chips [4, 5], finds memory capacity peaking at small coupling in reservoirs [6], obtains classical surrogates by truncation in linear optics [9], and uses tensor networks to reach non-vanishing gradients while comparing classical and quantum scaling [10]. A search found no paper with this exact sweep, but that search is not exhaustive and the result may be known or trivial.</p>
+<ol>
+  <li>Is there an error in the protocol or in the heuristic of Section 3, and is the result already known?</li>
+  <li>Moving from <math><mi>g</mi><mo>=</mo><mn>1.2</mn><mo lspace="0" rspace="0">/</mo><msqrt><mi>L</mi></msqrt></math> to twice and four times that value at <math><mi>L</mi><mo>=</mo><mn>80</mn></math>, the gradient variance falls by factors of 3.6 and 60, while the 8-qubit truncation error rises from 0.5&#8239;% to 11&#8239;% and 123&#8239;%. Does any coupling keep a usable gradient while defeating the best classical estimators, or do these two properties exclude each other in this family?</li>
+</ol>
+
+<h2>6. Reproducibility and use of AI</h2>
+<p>Code, raw data and figures are public under the MIT licence: <a href="https://github.com/nicobatberger-design/modular-quantum-trainability">github.com/nicobatberger-design/modular-quantum-trainability</a>. Predictions for the tests of Fig. 1b, the middle qubit, <math><mi>N</mi><mo>=</mo><mn>16</mn></math> and the trained parameters were pushed before those runs (commit c5ee4f1, file <code>PREDICTIONS_2026-10-31.md</code>), and all of them held. One earlier control prediction failed: at <math><mi>g</mi><mo>=</mo><mi>&#960;</mi><mo lspace="0" rspace="0">/</mo><mn>2</mn></math> the NRMSE was predicted to be at least 90&#8239;% for every <math><mi>n</mi><mo>&lt;</mo><mi>N</mi></math>, and it is 61&#8239;% at <math><mi>n</mi><mo>=</mo><mn>10</mn></math>. Results in Section 2 predate that file and have no outside timestamp. Errors found in earlier versions of this work are listed in <code>CORRECTIONS.md</code>.</p>
+<p>The author started the project and chose what to test, and does not work in physics research. Anthropic's Claude wrote the code, ran the simulations, and drafted the analysis, the heuristic of Section 3 and this text. OpenAI's Codex reviewed the code and the text and found errors. The author has not verified the physics independently, which is why expert criticism is requested.</p>
+
+<h2>References</h2>
+<ol class="refs">
+  <li>J. R. McClean et al., Barren plateaus in quantum neural network training landscapes, Nat. Commun. 9, 4812 (2018).</li>
+  <li>M. Cerezo et al., Cost function dependent barren plateaus in shallow parametrized quantum circuits, Nat. Commun. 12, 1791 (2021).</li>
+  <li>M. Cerezo et al., Does provable absence of barren plateaus imply classical simulability?, Nat. Commun. 16, 7907 (2025).</li>
+  <li>T. L. Patti et al., Entanglement devised barren plateau mitigation, Phys. Rev. Research 3, 033090 (2021).</li>
+  <li>J. J. Park et al., Addressing the current challenges of quantum machine learning through multi-chip ensembles, arXiv:2505.08782 (2025).</li>
+  <li>S. Askari, Y. Kora, C. Simon, Spin-network quantum reservoir computing with distributed inputs: the role of entanglement, arXiv:2511.04900 (2025).</li>
+  <li>A. Angrisani et al., Classically estimating observables of noiseless quantum circuits, Phys. Rev. Lett. 135, 170602 (2025).</li>
+  <li>M. S. Rudolph et al., Pauli propagation: a computational framework for simulating quantum systems, PRX Quantum 7, 032001 (2026).</li>
+  <li>L. Monbroussou et al., Classical simulation and model concentration in passive linear optics, arXiv:2607.24728 (2026).</li>
+  <li>B. A. Martin, T. Ayral, Pre-optimization of quantum circuits, barren plateaus and classical simulability: tensor networks to unlock the variational quantum eigensolver, arXiv:2602.04676 (2026).</li>
+</ol>
+</body>
+</html>

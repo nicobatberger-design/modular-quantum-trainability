@@ -28,3 +28,7 @@ The other six qubits get random parameters, 20 draws per trained circuit, 8 trai
 
 - Truncation to 6 qubits: gradient NRMSE at most 0.05.
 - Truncation to 8 qubits: gradient NRMSE at most 0.015.
+
+## Outcomes, added after the runs
+
+All predictions above held. The measured values are in the README, and `python analyze_followup.py` recomputes them from the JSON results.
