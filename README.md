@@ -1,5 +1,7 @@
 # Weak inter-module coupling and the entanglement/trainability tradeoff in modular quantum circuits
 
+> **Correction, 31 October 2026.** The claim that this regime is beyond classical simulation is contradicted for the observable studied here, and the headline ×1070 ratio compares against uncoupled blocks. See [CORRECTIONS.md](CORRECTIONS.md). The text below is being rewritten and is partly out of date until then.
+
 > Independent research project. Reproducible numerical evidence that, in **modular** variational quantum circuits and quantum reservoirs, a **weak continuous inter-module coupling** `g` optimizes the tradeoff between entanglement (a quantum resource) and trainability (gradient variance / barren plateaus).
 
 ## One-sentence claim
